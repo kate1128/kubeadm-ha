@@ -50,6 +50,7 @@ jobs:
             - old: flannel/
               new: kubeadm-ha/flannel_
           filters:
+            - flannel
             - ^[Vv]?\d+\.\d+(\.\d+)?(-\d+)?$
         EOF
         registry-manager sync -c config.yaml
