@@ -35,10 +35,10 @@ jobs:
     - name: Upload artifact to oss
       id: oss
       run: |
-        mc alias set oss https://oss.choerodon.com.cn ${{ secrets.OSS_USERNAME }} ${{ secrets.OSS_TOKEN }}
+        mc alias set oss https://files.saas.hand-china.com ${{ secrets.OSS_USERNAME }} ${{ secrets.OSS_TOKEN }}
         mc cp --json offline/kubeadm-ha-1.21.14-amd64-dev.tar oss/kubeadm-ha 2>&1 | tee oss.log
         target=$(cat oss.log | jq -r 'select(.target)|.target')
-        echo "::warning file=kubeadm-ha::https://oss.choerodon.com.cn/${target#*/}"
+        echo "::warning file=kubeadm-ha::https://files.saas.hand-china.com/${target#*/}"
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
       with:
@@ -76,10 +76,10 @@ jobs:
     - name: Upload artifact to oss
       id: oss
       run: |
-        mc alias set oss https://oss.choerodon.com.cn ${{ secrets.OSS_USERNAME }} ${{ secrets.OSS_TOKEN }}
+        mc alias set oss https://files.saas.hand-china.com ${{ secrets.OSS_USERNAME }} ${{ secrets.OSS_TOKEN }}
         mc cp --json offline/kubeadm-ha-1.21.14-arm64-dev.tar oss/kubeadm-ha 2>&1 | tee oss.log
         target=$(cat oss.log | jq -r 'select(.target)|.target')
-        echo "::warning file=kubeadm-ha::https://oss.choerodon.com.cn/${target#*/}"
+        echo "::warning file=kubeadm-ha::https://files.saas.hand-china.com/${target#*/}"
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
       with:
