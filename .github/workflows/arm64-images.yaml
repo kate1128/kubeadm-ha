@@ -16,7 +16,7 @@ jobs:
       run: |
         sudo curl -sSLo /usr/bin/mc https://dl.min.io/client/mc/release/linux-amd64/mc
         sudo chmod +x /usr/bin/mc
-        mc alias set oss https://oss.choerodon.com.cn ${{ secrets.OSS_USERNAME }} ${{ secrets.OSS_TOKEN }}
+        mc alias set oss https://files.saas.hand-china.com ${{ secrets.OSS_USERNAME }} ${{ secrets.OSS_TOKEN }}
 
     - name: Download images for arm64
       run: |
@@ -32,4 +32,4 @@ jobs:
       run: |
         mc cp --json registry.tgz oss/kubeadm-ha/kubernetes-1.27.16-images-arm64.tgz 2>&1 | tee oss.log
         target=$(cat oss.log | jq -r 'select(.target)|.target')
-        echo "::warning file=kubernetes-images::https://oss.choerodon.com.cn/${target#*/}"
+        echo "::warning file=kubernetes-images::https://files.saas.hand-china.com/${target#*/}"

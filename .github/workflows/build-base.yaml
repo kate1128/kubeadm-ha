@@ -40,7 +40,7 @@ jobs:
       run: |
         sudo curl -sSLo /usr/bin/mc https://dl.min.io/client/mc/release/linux-amd64/mc
         sudo chmod +x /usr/bin/mc
-        mc alias set oss https://oss.choerodon.com.cn ${{ secrets.OSS_USERNAME }} ${{ secrets.OSS_TOKEN }}
+        mc alias set oss https://files.saas.hand-china.com ${{ secrets.OSS_USERNAME }} ${{ secrets.OSS_TOKEN }}
 
     - name: Upload amd64 artifact to oss
       id: oss
@@ -50,7 +50,7 @@ jobs:
         docker save setzero/kubeadm-ha:base | gzip -1 > kubeadm-ha-base-amd64.tar
         mc cp --json kubeadm-ha-base-amd64.tar oss/kubeadm-ha 2>&1 | tee oss.log
         target=$(cat oss.log | jq -r 'select(.target)|.target')
-        echo "::warning file=kubeadm-ha-base::https://oss.choerodon.com.cn/${target#*/}"
+        echo "::warning file=kubeadm-ha-base::https://files.saas.hand-china.com/${target#*/}"
 
   push-arm64:
     needs: ["build-base"]
@@ -60,7 +60,7 @@ jobs:
       run: |
         sudo curl -sSLo /usr/bin/mc https://dl.min.io/client/mc/release/linux-amd64/mc
         sudo chmod +x /usr/bin/mc
-        mc alias set oss https://oss.choerodon.com.cn ${{ secrets.OSS_USERNAME }} ${{ secrets.OSS_TOKEN }}
+        mc alias set oss https://files.saas.hand-china.com ${{ secrets.OSS_USERNAME }} ${{ secrets.OSS_TOKEN }}
 
     - name: Upload arm64 artifact to oss
       id: oss
@@ -70,4 +70,4 @@ jobs:
         docker save setzero/kubeadm-ha:base | gzip -1 > kubeadm-ha-base-arm64.tar
         mc cp --json kubeadm-ha-base-arm64.tar oss/kubeadm-ha 2>&1 | tee oss.log
         target=$(cat oss.log | jq -r 'select(.target)|.target')
-        echo "::warning file=kubeadm-ha-base::https://oss.choerodon.com.cn/${target#*/}"
+        echo "::warning file=kubeadm-ha-base::https://files.saas.hand-china.com/${target#*/}"
