@@ -58,13 +58,13 @@ jobs:
     - name: Upload artifact to oss
       id: oss
       run: |
-        mc alias set oss https://oss.choerodon.com.cn ${{ secrets.OSS_USERNAME }} ${{ secrets.OSS_TOKEN }}
+        mc alias set oss https://files.saas.hand-china.com ${{ secrets.OSS_USERNAME }} ${{ secrets.OSS_TOKEN }}
         mc cp --json offline/amd64/docker-ce-20.10.24-amd64.tar.gz oss/kubeadm-ha 2>&1 | tee oss.log
         target=$(cat oss.log | jq -r 'select(.target)|.target')
-        echo "::warning file=docker-ce-amd64::https://oss.choerodon.com.cn/${target#*/}"
+        echo "::warning file=docker-ce-amd64::https://files.saas.hand-china.com/${target#*/}"
         mc cp --json offline/arm64/docker-ce-20.10.24-arm64.tar.gz oss/kubeadm-ha 2>&1 | tee oss.log
         target=$(cat oss.log | jq -r 'select(.target)|.target')
-        echo "::warning file=docker-ce-arm64::https://oss.choerodon.com.cn/${target#*/}"
+        echo "::warning file=docker-ce-arm64::https://files.saas.hand-china.com/${target#*/}"
     - name: Download images for amd64
       run: |
         cd $GITHUB_WORKSPACE/offline
