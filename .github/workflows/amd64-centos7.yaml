@@ -18,7 +18,7 @@ jobs:
       run: |
         sudo curl -sSLo /usr/bin/mc https://dl.min.io/client/mc/release/linux-amd64/mc
         sudo chmod +x /usr/bin/mc
-        mc alias set oss https://oss.choerodon.com.cn ${{ secrets.OSS_USERNAME }} ${{ secrets.OSS_TOKEN }}
+        mc alias set oss https://files.saas.hand-china.com ${{ secrets.OSS_USERNAME }} ${{ secrets.OSS_TOKEN }}
 
     - name: Download packages for amd64
       run: |
@@ -37,4 +37,4 @@ jobs:
       run: |
         mc cp --json packages.tgz oss/kubeadm-ha/centos7/kubernetes-1.29.9-centos7-amd64.tgz 2>&1 | tee oss.log
         target=$(cat oss.log | jq -r 'select(.target)|.target')
-        echo "::warning file=kubernetes-packages::https://oss.choerodon.com.cn/${target#*/}"
+        echo "::warning file=kubernetes-packages::https://files.saas.hand-china.com/${target#*/}"
