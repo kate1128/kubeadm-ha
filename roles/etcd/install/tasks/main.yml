@@ -35,7 +35,12 @@
     - /etc/kubernetes/manifests
 
   - name: 在 etcd 节点拉取相关镜像
-    shell: "{{ image_pull_command }} {{ item }}"
+    shell: |
+     if ! docker images --format "{{'{{.Repository}}:{{.Tag}}'}}" | grep -q "{{ item }}"; then
+       {{ image_pull_command }} {{ item }};
+     else
+       echo "Image {{ item }} already exists, skipping pull.";
+     fi
     with_items:
     - "{{ etcd_image }}"
     - "{{ pod_infra_container_image }}"
